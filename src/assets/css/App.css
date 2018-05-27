@@ -1,0 +1,69 @@
+@font-face {
+    font-family: Muli;
+    src: url('../fonts/Muli/Muli-Black.ttf') format("truetype");
+}
+
+body {
+    background-color: #282828;
+    font-family: Muli, sans-serif;
+}
+
+.wrapper {
+    padding-top: 169px;
+}
+
+.cards-grid-page {
+    display: grid;
+    justify-items: center;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(4, 300px [card]);
+    grid-column-gap: 35px;
+    grid-row-gap: 10px;
+    justify-items: center;
+    justify-content: center;
+}
+
+.container img {
+    width: 100%;
+    cursor: pointer;
+}
+
+.container > div {
+    border: 3px solid #282828;
+}
+
+.container > div.selected {
+    border: 3px groove #484848;
+    border-radius: 4px;
+}
+
+.circle-set {
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    background-color: rgba(81, 81, 81, 0.4);
+    display: inline-block;
+}
+
+.circle-set:not(:last-child) {
+    margin-right: 40px;
+}
+
+.circle-set-found {
+    background-color: rgba(250, 174, 45, 0.6);
+}
+
+.results {
+    margin-top: 70px;
+    text-align: center;
+}
+
+.timer {
+    display: block;
+    justify-items: center;
+    color: white;
+    font-family: Muli, sans-serif;
+}
