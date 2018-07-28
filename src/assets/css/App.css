@@ -73,5 +73,5 @@ body {
     justify-items: center;
     color: white;
     font-family: Muli, sans-serif;
-    margin-top: 20px;
+    min-height: 75px;
 }

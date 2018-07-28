@@ -109,10 +109,14 @@ export default class CardsGrid extends Component<Props, State> {
         const elapsed = Math.round(this.state.elapsed / 100);
         const time = (elapsed / 10).toFixed(0);
 
-        const {minutes, seconds} = this.calculateTime(time)
+        const {minutes, seconds} = this.calculateTime(time);
 
         return (
             <div className='cards-grid-page'>
+                <div className='timer'>
+                    {this.state.setsFound.length === 7 &&
+                    <h2>Congratulations! You solved the puzzle in {minutes > 0 && `${minutes} minutes and`} {seconds} seconds</h2>}
+                </div>
                 <div className='container'>
                     {this.state.cards.map((card) => {
                         return (
@@ -129,10 +133,6 @@ export default class CardsGrid extends Component<Props, State> {
                 <div className='results'>
                     {this.state.setsFound.map((set, i) => <div key={i} className='circle-set circle-set-found'/>)}
                     {[...Array(7 - this.state.setsFound.length)].map((e, i) => <div key={i} className='circle-set'/>)}
-                </div>
-                <div className='timer'>
-                    {this.state.setsFound.length === 7 &&
-                    <h2>Congratulations! You solved the puzzle in {minutes > 0 && `${minutes} minutes and`} {seconds} seconds</h2>}
                 </div>
             </div>);
 
