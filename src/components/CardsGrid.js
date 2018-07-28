@@ -42,6 +42,11 @@ export default class CardsGrid extends Component<Props, State> {
         if (equals(prevState.selected, this.state.selected)) {
             return;
         }
+
+        if (this.state.setsFound.length === 7) {
+            clearInterval(this.timer);
+            return
+        }
         /* eslint-disable react/no-did-update-set-state */
         if (this.state.selected.length === 3) {
             const cards: CardsArray = this.state.selected
@@ -56,7 +61,10 @@ export default class CardsGrid extends Component<Props, State> {
                     const newSets: Array<Array<string>> = this.state.setsFound.slice();
                     newSets.push(sorted);
                     this.setState({setsFound: newSets});
-                    toast.success("Set identified correctly!");
+
+                    if (this.state.setsFound.length !== 6) {
+                        toast.success("Set identified correctly!");
+                    }
                 }
 
             } catch (e) {
@@ -73,12 +81,14 @@ export default class CardsGrid extends Component<Props, State> {
 
         }
 
-        if (this.state.setsFound.length === 7) {
-            clearInterval(this.timer)
-        }
+
     }
 
     handleClick = (id: string): void => {
+        if(this.state.setsFound.length === 7){
+            return
+        }
+
         this.setState(prevState => {
             if (prevState.selected.includes(id)) {
                 return {
