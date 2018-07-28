@@ -9,7 +9,7 @@ body {
 }
 
 .wrapper {
-    padding-top: 169px;
+    padding-top: 140px;
 }
 
 .cards-grid-page {
@@ -64,7 +64,7 @@ body {
 }
 
 .results {
-    margin-top: 70px;
+    margin-top: 50px;
     text-align: center;
 }
 
@@ -73,4 +73,5 @@ body {
     justify-items: center;
     color: white;
     font-family: Muli, sans-serif;
+    margin-top: 20px;
 }

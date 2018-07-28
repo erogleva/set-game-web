@@ -76,7 +76,7 @@ export default class CardsGrid extends Component<Props, State> {
 
         }
 
-        if(this.state.setsFound.length === 7 ){
+        if (this.state.setsFound.length === 7) {
             clearInterval(this.timer)
         }
     }
@@ -98,9 +98,18 @@ export default class CardsGrid extends Component<Props, State> {
         this.setState({elapsed: new Date() - this.state.start});
     };
 
+    calculateTime = (time: number): any => {
+        const minutes = Math.floor(time / 60);
+        const seconds = time - minutes * 60;
+
+        return {minutes, seconds}
+    };
+
     render() {
         const elapsed = Math.round(this.state.elapsed / 100);
-        const seconds = (elapsed / 10).toFixed(1);
+        const time = (elapsed / 10).toFixed(0);
+
+        const {minutes, seconds} = this.calculateTime(time)
 
         return (
             <div className='cards-grid-page'>
@@ -112,17 +121,18 @@ export default class CardsGrid extends Component<Props, State> {
                                 onClick={() => this.handleClick(card.id)}
                                 className={this.state.selected.includes(card.id) ? 'selected' : undefined}
                             >
-                                <img src={card.source} draggable="false"/>
+                                <img src={card.source} draggable="false" alt={card.id}/>
                             </div>)
                     })}
-                    <ToastContainer autoClose={7000}/>
+                    <ToastContainer/>
                 </div>
                 <div className='results'>
                     {this.state.setsFound.map((set, i) => <div key={i} className='circle-set circle-set-found'/>)}
                     {[...Array(7 - this.state.setsFound.length)].map((e, i) => <div key={i} className='circle-set'/>)}
                 </div>
                 <div className='timer'>
-                    <h2>{seconds}</h2>
+                    {this.state.setsFound.length === 7 &&
+                    <h2>Congratulations! You solved the puzzle in {minutes > 0 && `${minutes} minutes and`} {seconds} seconds</h2>}
                 </div>
             </div>);
 
