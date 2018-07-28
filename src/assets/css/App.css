@@ -32,7 +32,6 @@ body {
 	-moz-user-select: none;
 	-webkit-user-select: none;
 	-khtml-user-select: none;
-	-moz-user-select: none;
 	-o-user-select: none;
 	user-select: none;
 	-moz-selection: none;
@@ -74,4 +73,15 @@ body {
     color: white;
     font-family: Muli, sans-serif;
     min-height: 75px;
+}
+
+.refresh-button {
+    font-family: Quicksand, sans-serif;
+    background-color: rgba(250, 174, 45, 0.6);
+    padding: 10px 15px;
+    border: none;
+    outline: none;
+    color: #ffffff;
+    cursor: pointer;
+    margin-top: 40px;
 }

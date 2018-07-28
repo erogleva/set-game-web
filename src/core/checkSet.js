@@ -12,26 +12,24 @@ export function checkSet(cards: CardsArray): string {
 
         if (uniqueValues.length === 2) {
             if (featureValues[0] === featureValues[1] || featureValues[0] === featureValues[2]) {
-                return createErrorMessage(featureValues[0])
+                throw createErrorMessage(featureValues[0])
             }
-            return createErrorMessage(featureValues[1])
+            throw createErrorMessage(featureValues[1])
         }
     }
-    return 'Correct!';
+    return true;
 }
 
 function createErrorMessage(featureValue) {
-    
-    switch (featureValue){
-        case cardFeatures.number[0]:
+
+    switch (true){
+        case featureValue === cardFeatures.number[0]:
             return `Not a set! Two have one symbol and one does not!`;
-        case cardFeatures.number[1]:
+        case featureValue === cardFeatures.number[1]:
             return `Not a set! Two have two symbols and one does not!`;
-        case cardFeatures.number[2]:
+        case featureValue === cardFeatures.number[2]:
             return `Not a set! Two have three symbols and one does not!`;
-        case cardFeatures.shape[0]:
-        case cardFeatures.shape[1]:
-        case cardFeatures.shape[2]:
+        case cardFeatures.shape.includes(featureValue):
             return `Not a set! Two are ${featureValue}s  and one is not!`;
         default:
             return `Not a set! Two are ${featureValue} and one is not!`

@@ -30,14 +30,12 @@ export default class CardsGrid extends Component<Props, State> {
             elapsed: 0,
             start: Date.now()
         };
-
-        this.timer = setInterval(this.tick, 50)
-
     }
 
     componentDidMount() {
         /* eslint-disable react/no-did-mount-set-state */
         this.setState({cards: createSets(cards)});
+        this.timer = setInterval(this.tick, 50);
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -49,10 +47,8 @@ export default class CardsGrid extends Component<Props, State> {
             const cards: CardsArray = this.state.selected
                 .map(cardId => this.state.cards
                     .find(card => card.id === cardId));
-
-            const result = checkSet(cards);
-
-            if (result === 'Correct!') {
+            try {
+                checkSet(cards);
                 const sorted = this.state.selected.sort((a, b) => a.localeCompare(b));
                 if (checkIfMatrixContainsItem(this.state.setsFound, sorted)) {
                     toast.error("You already found that one!");
@@ -62,8 +58,9 @@ export default class CardsGrid extends Component<Props, State> {
                     this.setState({setsFound: newSets});
                     toast.success("Set identified correctly!");
                 }
-            } else {
-                toast.error(result);
+
+            } catch (e) {
+                toast.error(e);
             }
 
             window.setTimeout(() => {
@@ -94,7 +91,7 @@ export default class CardsGrid extends Component<Props, State> {
         });
     };
 
-    tick = () => {
+    tick = (): void => {
         this.setState({elapsed: new Date() - this.state.start});
     };
 
@@ -103,6 +100,18 @@ export default class CardsGrid extends Component<Props, State> {
         const seconds = time - minutes * 60;
 
         return {minutes, seconds}
+    };
+
+    refresh = (): void => {
+        this.setState({
+            selected: [],
+            setsFound: [],
+            elapsed: 0,
+            start: Date.now()
+        });
+
+        this.setState({cards: createSets(cards)});
+        this.timer = setInterval(this.tick, 50);
     };
 
     render() {
@@ -115,7 +124,8 @@ export default class CardsGrid extends Component<Props, State> {
             <div className='cards-grid-page'>
                 <div className='timer'>
                     {this.state.setsFound.length === 7 &&
-                    <h2>Congratulations! You solved the puzzle in {minutes > 0 && `${minutes} minutes and`} {seconds} seconds</h2>}
+                    <h2>Congratulations! You solved the puzzle
+                        in {minutes > 0 && `${minutes} minutes and`} {seconds} seconds!</h2>}
                 </div>
                 <div className='container'>
                     {this.state.cards.map((card) => {
@@ -134,6 +144,7 @@ export default class CardsGrid extends Component<Props, State> {
                     {this.state.setsFound.map((set, i) => <div key={i} className='circle-set circle-set-found'/>)}
                     {[...Array(7 - this.state.setsFound.length)].map((e, i) => <div key={i} className='circle-set'/>)}
                 </div>
+                <button className='refresh-button' onClick={this.refresh}>Refresh sets</button>
             </div>);
 
     }
