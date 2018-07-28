@@ -43,7 +43,7 @@
 }
 
 .Toastify__toast--success {
-    background-color: rgba(250, 174, 45, 0.6);
+    background-color: rgb(168, 120, 36);
 }
 
 
@@ -78,4 +78,16 @@
 
 .Toastify__close-button:hover, .Toastify__close-button:focus {
     opacity: 1;
+}
+
+@media only screen and (max-width: 890px) {
+    .Toastify__toast-container {
+        bottom: 2em;
+        top: auto;
+        left: auto;
+        margin: auto;
+        font-size: 12px;
+        width: 70%;
+    }
+
 }
