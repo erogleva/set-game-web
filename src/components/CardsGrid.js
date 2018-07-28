@@ -121,7 +121,7 @@ export default class CardsGrid extends Component<Props, State> {
         const {minutes, seconds} = this.calculateTime(time);
 
         return (
-            <div className='cards-grid-page'>
+            <div className='cards-grid-page play'>
                 <div className='timer'>
                     {this.state.setsFound.length === 7 &&
                     <h2>Congratulations! You solved the puzzle
