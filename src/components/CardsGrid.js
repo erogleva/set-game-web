@@ -44,6 +44,7 @@ export default class CardsGrid extends Component<Props, State> {
         }
 
         if (this.state.setsFound.length === 7) {
+
             clearInterval(this.timer);
             return
         }
@@ -121,6 +122,7 @@ export default class CardsGrid extends Component<Props, State> {
         });
 
         this.setState({cards: createSets(cards)});
+        clearInterval(this.timer);
         this.timer = setInterval(this.tick, 50);
     };
 
@@ -135,7 +137,7 @@ export default class CardsGrid extends Component<Props, State> {
                 <div className='timer'>
                     {this.state.setsFound.length === 7 &&
                     <h2>Congratulations! You solved the puzzle
-                        in {minutes > 0 && `${minutes} minutes and`} {seconds} seconds!</h2>}
+                        in {minutes > 0 && `${minutes} minute`}{minutes > 1 && 's'}{minutes > 0 && seconds > 0 && ' and'}{seconds > 0 && ` ${seconds} second`}{seconds > 1 && 's'}!</h2>}
                 </div>
                 <div className='container'>
                     {this.state.cards.map((card) => {
